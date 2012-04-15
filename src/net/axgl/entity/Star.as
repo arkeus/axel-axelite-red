@@ -49,6 +49,8 @@ package net.axgl.entity {
 			} else if (isTouching(RIGHT)) {
 				velocity.x = -SPEED;
 			}
+			
+			super.update();
 		}
 	}
 }

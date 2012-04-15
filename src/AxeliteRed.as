@@ -8,8 +8,11 @@ package {
 	
 	public class AxeliteRed extends Ax {
 		public function AxeliteRed() {
-			// Start in our TitleState with a zoom of 1
-			super(600, 383, new TitleState, 1);
+			// Start in our TitleState
+			super(TitleState);
+		}
+		
+		override public function create():void {
 			// Force ability to open debugger using ~ or \ even in release mode
 			Ax.debuggerEnabled = true;
 		}

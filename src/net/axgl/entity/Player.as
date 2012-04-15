@@ -20,12 +20,20 @@ package net.axgl.entity {
 		 * Creates a new player.
 		 */
 		public function Player(x:uint, y:uint) {
-			super(x, y, Resource.PLAYER);
+			super(x, y, Resource.PLAYER, 24, 32);
 			
+			addAnimation("stand", [0]);
+			addAnimation("walk", [1, 2, 3, 4, 5, 6], 9);
+			addAnimation("jump", [7]);
+			addAnimation("fall", [8]);
+			animate("stand");
+			
+			// Adjust bounding box
+			bounds(16, 30, 4, 2);
 			// Add friction
 			drag = new AxVector(400, 300);
 			// Add the maximum velocity of our player
-			terminal = new AxVector(150, 600);
+			maxVelocity = new AxVector(150, 600);
 			// Add gravity
 			acceleration.y = 600;
 		}
@@ -47,13 +55,25 @@ package net.axgl.entity {
 				acceleration.x = 0;
 			}
 			
+			if (velocity.y < 0) {
+				animate("jump");
+			} else if (velocity.y > 0) {
+				animate("fall");
+			} else if (velocity.x != 0) {
+				animate("walk");
+			} else {
+				animate("stand");
+			}
+			
 			// If we're hurt, change our color to a dark red until hurtTimer has run out
 			if (hurt) {
 				hurtTimer -= Ax.dt;
-				color(1, 0.3, 0.3, 0.6);
+				setColor(1, 0.3, 0.3, 0.6);
 			} else {
-				color(1, 1, 1, 1);
+				setColor(1, 1, 1, 1);
 			}
+			
+			super.update();
 		}
 		
 		/**

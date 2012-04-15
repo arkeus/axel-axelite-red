@@ -86,7 +86,7 @@ package net.axgl.state {
 			this.add(tilemap);
 			
 			// Create our player
-			player = new Player(36, 428);
+			player = new Player(40, tilemap.height - 24 - 32);
 			this.add(player);
 			
 			// Set the camera to follow our player, but only in the bounds of the world
